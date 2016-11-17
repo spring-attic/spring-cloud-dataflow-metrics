@@ -1,3 +1,7 @@
 # Environment Post Processors
-org.springframework.boot.env.EnvironmentPostProcessor=org.springframework.cloud.dataflow.metrics.PidEnvironmentPostProcessor
+org.springframework.boot.env.EnvironmentPostProcessor=\
+org.springframework.cloud.dataflow.metrics.PidEnvironmentPostProcessor
 
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+org.springframework.cloud.dataflow.metrics.MetricsAutoConfiguration
