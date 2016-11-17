@@ -21,7 +21,12 @@
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dataflow-metics-log</artifactId>
+				<artifactId>spring-cloud-dataflow-metrics-log</artifactId>
+				<version>1.0.0.BUILD-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-dataflow-metrics-log</artifactId>
 				<version>1.0.0.BUILD-SNAPSHOT</version>
 			</dependency>
 		</dependencies>
