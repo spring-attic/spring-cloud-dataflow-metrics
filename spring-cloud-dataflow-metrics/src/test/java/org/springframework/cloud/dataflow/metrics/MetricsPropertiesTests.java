@@ -34,16 +34,14 @@ public class MetricsPropertiesTests {
     @Test
     public void testDefaults() {
         ApplicationContext context = getApplicationContext();
-        MetricsProperties metricsProperties = getMetricsProperties(context);
-        assertThat(metricsProperties.getPrefix()).isEqualTo("group.application." + pid);
+        assertThat(getResolvedMetricPrefix(context)).isEqualTo("group.application." + pid);
     }
 
     @Test
     public void testSettingGroupAndAppName() {
         populateDefaultGroupNameProperties();
         ApplicationContext context = getApplicationContext();
-        MetricsProperties metricsProperties = getMetricsProperties(context);
-        assertThat(metricsProperties.getPrefix()).isEqualTo("mygroup.myapp." + pid);
+        assertThat(getResolvedMetricPrefix(context)).isEqualTo("mygroup.myapp." + pid);
     }
 
     @Test
@@ -51,8 +49,7 @@ public class MetricsPropertiesTests {
         populateDefaultGroupNameProperties();
         defaultProperties.put("vcap.application.instance_index", 1);
         ApplicationContext context = getApplicationContext();
-        MetricsProperties metricsProperties = getMetricsProperties(context);
-        assertThat(metricsProperties.getPrefix()).isEqualTo("mygroup.myapp.1");
+        assertThat(getResolvedMetricPrefix(context)).isEqualTo("mygroup.myapp.1");
     }
 
     @Test
@@ -60,8 +57,16 @@ public class MetricsPropertiesTests {
         populateDefaultGroupNameProperties();
         defaultProperties.put("spring.application.index",2);
         ApplicationContext context = getApplicationContext();
-        MetricsProperties metricsProperties = getMetricsProperties(context);
-        assertThat(metricsProperties.getPrefix()).isEqualTo("mygroup.myapp.2");
+        assertThat(getResolvedMetricPrefix(context)).isEqualTo("mygroup.myapp.2");
+    }
+
+    @Test
+    public void testOverridePrefix() {
+        defaultProperties.put("spring.cloud.application.group", "mygroup2");
+        SpringApplication application = new SpringApplication(NotSoSimpleConfiguration.class);
+        application.setDefaultProperties(defaultProperties);
+        ApplicationContext context = application.run();
+        assertThat(getResolvedMetricPrefix(context)).isEqualTo("mygroup2");
     }
 
 
@@ -71,10 +76,10 @@ public class MetricsPropertiesTests {
     }
 
 
-    private MetricsProperties getMetricsProperties(ApplicationContext context) {
-        MetricsProperties metricsProperties = context.getBean(MetricsProperties.class);
-        assertThat(metricsProperties).isNotNull();
-        return metricsProperties;
+    private String getResolvedMetricPrefix(ApplicationContext context) {
+        MetricsPrefixResolver metricPrefixContextInitializer = context.getBean(MetricsPrefixResolver.class);
+        assertThat(metricPrefixContextInitializer.getResolvedPrefix()).isNotNull();
+        return metricPrefixContextInitializer.getResolvedPrefix();
     }
 
     private ApplicationContext getApplicationContext() {
@@ -83,12 +88,33 @@ public class MetricsPropertiesTests {
         return application.run();
     }
 
+
     @Configuration
     static class SimpleConfiguration {
 
         @Bean
         public MetricsProperties metricsProperties() {
             return new MetricsProperties();
+        }
+
+        @Bean
+        public MetricsPrefixResolver metricPrefixResolver() {
+            return new MetricsPrefixResolver(metricsProperties());
+        }
+    }
+
+    @Configuration
+    static class NotSoSimpleConfiguration {
+        @Bean
+        public MetricsProperties metricsProperties() {
+            MetricsProperties metricsProperties = new MetricsProperties();
+            metricsProperties.setPrefix("${spring.cloud.application.group}");
+            return metricsProperties;
+        }
+
+        @Bean
+        public MetricsPrefixResolver metricPrefixResolver() {
+            return new MetricsPrefixResolver(metricsProperties());
         }
     }
 }

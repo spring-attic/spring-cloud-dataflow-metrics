@@ -15,22 +15,25 @@
  */
 package org.springframework.cloud.dataflow.metrics;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.core.env.Environment;
 
-@ConfigurationProperties(prefix = "spring.cloud.dataflow.metrics")
-public class MetricsProperties {
+public class MetricsPrefixResolver implements EnvironmentAware {
 
-    private String prefix = "${spring.cloud.application.group:group}.${spring.application.name:application}." + id;
+    private MetricsProperties metricsProperties;
 
-    private final static String id = "${vcap.application.instance_index:${spring.application.index:${spring.cloud.application.pid}}}";
+    private Environment environment;
 
-    public String getPrefix() {
-        return prefix;
+    public MetricsPrefixResolver(MetricsProperties metricsProperties) {
+        this.metricsProperties = metricsProperties;
     }
 
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
+    public String getResolvedPrefix() {
+        return environment.resolvePlaceholders(metricsProperties.getPrefix());
     }
 
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
 }
