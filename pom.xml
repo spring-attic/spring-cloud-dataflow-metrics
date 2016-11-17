@@ -18,7 +18,7 @@
 	</parent>
 	<scm>
 		<url>https://github.com/spring-cloud/spring-cloud-dataflow-metrics</url>
-		<connection>scm:git:git://github.com/spring-cloud/spring-cloud-dataflow-metricvs.git</connection>
+		<connection>scm:git:git://github.com/spring-cloud/spring-cloud-dataflow-metrics.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/spring-cloud/spring-cloud-dataflow-metrics.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
