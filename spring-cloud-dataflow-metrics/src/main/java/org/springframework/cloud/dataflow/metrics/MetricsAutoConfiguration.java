@@ -31,4 +31,10 @@ public class MetricsAutoConfiguration {
     public MetricsEndpointMetricReader metricsEndpointMetricReader(MetricsEndpoint metricsEndpoint) {
         return new MetricsEndpointMetricReader(metricsEndpoint);
     }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public MetricsPrefixResolver metricsPrefixResolver(MetricsProperties metricsProperties) {
+        return new MetricsPrefixResolver(metricsProperties);
+    }
 }
