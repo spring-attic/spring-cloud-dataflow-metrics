@@ -117,4 +117,5 @@ public class MetricsPropertiesTests {
             return new MetricsPrefixResolver(metricsProperties());
         }
     }
+
 }
