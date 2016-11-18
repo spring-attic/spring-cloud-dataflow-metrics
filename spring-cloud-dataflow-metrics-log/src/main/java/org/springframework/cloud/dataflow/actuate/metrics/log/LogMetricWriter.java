@@ -27,7 +27,7 @@ public class LogMetricWriter implements MetricWriter {
 
     @Override
     public void increment(Delta<?> delta) {
-        // Not implemented
+        log.info("Incremented " + delta.toString());
     }
 
     @Override
