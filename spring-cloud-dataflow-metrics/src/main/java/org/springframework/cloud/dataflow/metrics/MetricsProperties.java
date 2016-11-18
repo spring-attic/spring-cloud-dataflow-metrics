@@ -23,7 +23,7 @@ public class MetricsProperties {
 
     private String prefix = "${spring.cloud.application.group:group}.${spring.application.name:application}." + id;
 
-    private final static String id = "${vcap.application.instance_index:${spring.application.index:${spring.cloud.application.pid}}}";
+    private final static String id = "${vcap.application.instance_index:${spring.application.index:${PID}}}";
 
     public String getPrefix() {
         return prefix;
