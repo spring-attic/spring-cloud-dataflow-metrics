@@ -1,0 +1,54 @@
+Spring Cloud Data Flow Metrics provides the foundation to help export Boot metrics that are exposed under the 
+`/metrics` endpoint to a variety of external systems.  It provides Spring Boot AutoConfiguration to setup 
+the exporting process and common functionality such as defining a prefix for your metric names.
+
+The `spring-cloud-dataflow-metrics-log` module provides a `LogMetricWriter` that writes Boot metrics into 
+the log file.  While it is a very simple `MetricWriter` implementation, log files
+are often ingested into application monitoring tools where they can be further processed to create 
+dashboards of an application's performance.  
+
+== Maven configuration
+
+Add the Maven dependency
+[source,xml,indent=0]
+----
+<dependency>
+  <groupId>org.springframework.cloud</groupId>
+  <artifactId>spring-cloud-dataflow-metrics-log</artifactId>
+  <version>1.0.0.BUILD-SNAPSHOT</version>
+ </dependency>
+----
+
+and reference the Spring Snapshot repository
+
+[source,xml,indent=0]
+----
+<repository>
+  <id>spring-libs-snapshot</id>
+  <name>Spring Snapshot Repository</name>
+  <url>http://repo.spring.io/libs-snapshot</url>
+</repository>
+----
+
+== Configuration
+
+The prefix that will be prepended to the names of metrics that are exposed under the `/metrics` endpoint can be configured using the property `spring.cloud.dataflow.metrics.prefix`.
+
+The default value uses the form `${spring.cloud.application.group}.${spring.cloud.application.name}.<ID>` 
+where `<ID>` and the `${}` placeholders are referencing standard Spring Boot Configuration properties.
+
+If the `spring.cloud.application` placeholder values are not set, then the default value for 
+`${spring.cloud.application.group}` is `group` and `${spring.cloud.application.name}` is `application`
+
+The value of `<ID>` is resovled to one of the following placeholder expressions in the following order
+
+* ${vcap.application.instance_index}
+* ${spring.application.index}
+* ${PID}
+
+Other useful property placeholder keys that you should be aware of when setting your own prefix value are
+
+* ${server.port}
+* ${spring.cloud.client.ipAddress}
+* ${spring.cloud.client.hostname}
+
