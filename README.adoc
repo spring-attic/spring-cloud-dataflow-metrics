@@ -45,15 +45,15 @@ If the `spring.cloud.application` placeholder values are not set, then the defau
 
 The value of `<ID>` is resovled to one of the following placeholder expressions in the following order
 
-* ${vcap.application.instance_index}
-* ${spring.application.index}
-* ${PID}
+* `${vcap.application.instance_index}`
+* `${spring.application.index}`
+* `${PID}`
 
 Other useful property placeholder keys that you should be aware of when setting your own prefix value are
 
-* ${server.port}
-* ${spring.cloud.client.ipAddress}
-* ${spring.cloud.client.hostname}
+* `${server.port}`
+* `${spring.cloud.client.ipAddress}`
+* `${spring.cloud.client.hostname}`
 
 The exporting process is controller though https://github.com/spring-projects/spring-boot/blob/master/spring-boot-actuator/src/main/java/org/springframework/boot/actuate/metrics/export/MetricExportProperties.java[MetricExportProperties]. This lets you control how often the metrics are exported and which metrics to include/exclude.  Some documentation is available http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready-metric-writers[here].
 
