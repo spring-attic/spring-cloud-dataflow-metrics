@@ -17,6 +17,7 @@ package org.springframework.cloud.dataflow.actuate.metrics.log;
 
 
 import org.springframework.boot.actuate.autoconfigure.ExportMetricWriter;
+import org.springframework.cloud.dataflow.metrics.MetricsPrefixResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,7 +26,7 @@ public class LogMetricWriterAutoConfiguration {
 
     @Bean
     @ExportMetricWriter
-    public LogMetricWriter logMetricWriter() {
-        return new LogMetricWriter();
+    public LogMetricWriter logMetricWriter(MetricsPrefixResolver metricsPrefixResolver) {
+        return new LogMetricWriter(metricsPrefixResolver);
     }
 }

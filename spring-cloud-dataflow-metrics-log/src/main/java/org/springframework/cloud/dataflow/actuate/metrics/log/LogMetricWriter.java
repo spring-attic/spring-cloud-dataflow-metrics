@@ -20,14 +20,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.actuate.metrics.Metric;
 import org.springframework.boot.actuate.metrics.writer.Delta;
 import org.springframework.boot.actuate.metrics.writer.MetricWriter;
+import org.springframework.cloud.dataflow.metrics.MetricsPrefixResolver;
 
 public class LogMetricWriter implements MetricWriter {
 
     private static Logger log = LoggerFactory.getLogger(LogMetricWriter.class);
 
+    private String prefix;
+
+    public LogMetricWriter(MetricsPrefixResolver metricsPrefixResolver) {
+        this.prefix = metricsPrefixResolver.getResolvedPrefix();
+    }
+
     @Override
     public void increment(Delta<?> delta) {
-        log.info("Incremented " + delta.toString());
+        log.info("Incremented " + getLogMessage(delta));
     }
 
     @Override
@@ -37,6 +44,11 @@ public class LogMetricWriter implements MetricWriter {
 
     @Override
     public void set(Metric<?> metric) {
-        log.info(metric.toString());
+        log.info(getLogMessage(metric));
+    }
+
+    private String getLogMessage(Metric<?> metric) {
+        return "Metric [name=" + prefix + "." + metric.getName() + ", value=" +
+                metric.getValue() + ", timestamp=" + metric.getTimestamp() + "]";
     }
 }
