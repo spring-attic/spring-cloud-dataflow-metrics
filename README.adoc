@@ -37,11 +37,11 @@ and reference the Spring Snapshot repository
 
 The prefix that will be prepended to the names of metrics that are exposed under the `/metrics` endpoint can be configured using the property `spring.cloud.dataflow.metrics.prefix`.
 
-The default value uses the form `${spring.cloud.application.group}.${spring.cloud.application.name}.<ID>` 
+The default value uses the form `${spring.cloud.application.group}.${spring.application.name}.<ID>` 
 where `<ID>` and the `${}` placeholders are referencing standard Spring Boot Configuration properties.
 
 If the `spring.cloud.application` placeholder values are not set, then the default value for 
-`${spring.cloud.application.group}` is `group` and `${spring.cloud.application.name}` is `application`
+`${spring.cloud.application.group}` is `group` and `${spring.application.name}` is `application`
 
 The value of `<ID>` is resovled to one of the following placeholder expressions in the following order
 
