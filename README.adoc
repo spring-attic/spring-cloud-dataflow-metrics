@@ -8,7 +8,7 @@ are often ingested into application monitoring tools where they can be further p
 dashboards of an application's performance.  
 
 Most important for Spring Cloud Data Flow Stream applications are the inclusion of 
-http://docs.spring.io/spring-integration/reference/html/system-management-chapter.html#mgmt-channel-features[Spring Integration channel metrics] such as message rates.
+https://docs.spring.io/spring-integration/reference/html/system-management-chapter.html#mgmt-channel-features[Spring Integration channel metrics] such as message rates.
 
 == Maven configuration
 
@@ -29,7 +29,7 @@ and reference the Spring Snapshot repository
 <repository>
   <id>spring-libs-snapshot</id>
   <name>Spring Snapshot Repository</name>
-  <url>http://repo.spring.io/libs-snapshot</url>
+  <url>https://repo.spring.io/libs-snapshot</url>
 </repository>
 ----
 
@@ -55,7 +55,7 @@ Other useful property placeholder keys that you should be aware of when setting 
 * `${spring.cloud.client.ipAddress}`
 * `${spring.cloud.client.hostname}`
 
-The exporting process is controller though https://github.com/spring-projects/spring-boot/blob/master/spring-boot-actuator/src/main/java/org/springframework/boot/actuate/metrics/export/MetricExportProperties.java[MetricExportProperties]. This lets you control how often the metrics are exported and which metrics to include/exclude.  Some documentation is available http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready-metric-writers[here].
+The exporting process is controller though https://github.com/spring-projects/spring-boot/blob/master/spring-boot-actuator/src/main/java/org/springframework/boot/actuate/metrics/export/MetricExportProperties.java[MetricExportProperties]. This lets you control how often the metrics are exported and which metrics to include/exclude.  Some documentation is available https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready-metric-writers[here].
 
 == Sister projects
 
@@ -63,7 +63,7 @@ The project https://github.com/spring-cloud/spring-cloud-dataflow-metrics-datado
 
 == Sample application
 
-https://github.com/markpollack/timemonitor[Timemonitor] is an example application (a WIP) that demonstrates creating the time source application from http://start-scs.cfapps.io/[Data Flow App Starters] and adding the ability to export metrics.
+https://github.com/markpollack/timemonitor[Timemonitor] is an example application (a WIP) that demonstrates creating the time source application from https://start-scs.cfapps.io/[Data Flow App Starters] and adding the ability to export metrics.
 
 == Release Plans
 
