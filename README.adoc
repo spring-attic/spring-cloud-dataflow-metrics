@@ -1,3 +1,5 @@
+# spring-cloud-dataflow-metrics is no longer actively maintained by VMware, Inc.
+
 Spring Cloud Data Flow Metrics provides the foundation to help export Boot metrics that are exposed under the 
 `/metrics` endpoint to a variety of external systems.  It provides Spring Boot AutoConfiguration to setup 
 the exporting process and common functionality such as defining a prefix for your metric names.
